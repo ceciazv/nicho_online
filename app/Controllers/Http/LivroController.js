@@ -3,7 +3,7 @@
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
-
+const Livro=use("App/Models/Livro")
 /**
  * Resourceful controller for interacting with livros
  */
@@ -18,18 +18,8 @@ class LivroController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
-  }
-
-  /**
-   * Render a form to be used for creating a new livro.
-   * GET livros/create
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async create ({ request, response, view }) {
+    const livros=await Livro.all()
+    return livros
   }
 
   /**
@@ -41,6 +31,9 @@ class LivroController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
+    const {autor, nome, genero_id, editora} = request.only(["autor", "nome","genero_id", "editora"]);
+    const livros = await Livro.create({autor, nome, editora, genero_id});
+    return livros;
   }
 
   /**
@@ -53,18 +46,8 @@ class LivroController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
-  }
-
-  /**
-   * Render a form to update an existing livro.
-   * GET livros/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async edit ({ params, request, response, view }) {
+      const livros = await Livro.findOrFail(params.id);
+      return livros;
   }
 
   /**
@@ -76,6 +59,21 @@ class LivroController {
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
+    const livros = await Livro.findOrFail(params.id);
+    const { nome, genero_id, autor, editora } = request.only([
+      "nome",
+      "genero_id",
+      "autor",
+      "editora"
+    ]);
+    livros.nome = nome;
+    livros.genero_id= genero_id;
+    livros.autor = autor;
+    livros.editora = editora;
+    await livros.save();
+    return livros;
+    }
+ 
   }
 
   /**
@@ -86,8 +84,5 @@ class LivroController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params, request, response }) {
-  }
-}
 
-module.exports = LivroController
+module.exports = LivroController;

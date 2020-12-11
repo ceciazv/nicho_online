@@ -3,14 +3,14 @@
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
-
+const Genero=use("App/Models/Genero")
 /**
- * Resourceful controller for interacting with usuarios
+ * Resourceful controller for interacting with generos
  */
-class UsuarioController {
+class GeneroController {
   /**
-   * Show a list of all usuarios.
-   * GET usuarios
+   * Show a list of all generos.
+   * GET generos
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -18,12 +18,25 @@ class UsuarioController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
+    const generos=await Genero.all()
+    return generos
   }
 
- 
   /**
-   * Create/save a new usuario.
-   * POST usuarios
+   * Render a form to be used for creating a new genero.
+   * GET generos/create
+   *
+   * @param {object} ctx
+   * @param {Request} ctx.request
+   * @param {Response} ctx.response
+   * @param {View} ctx.view
+   */
+  async create ({ request, response, view }) {
+  }
+
+  /**
+   * Create/save a new genero.
+   * POST generos
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -33,8 +46,8 @@ class UsuarioController {
   }
 
   /**
-   * Display a single usuario.
-   * GET usuarios/:id
+   * Display a single genero.
+   * GET generos/:id
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -45,8 +58,20 @@ class UsuarioController {
   }
 
   /**
-   * Update usuario details.
-   * PUT or PATCH usuarios/:id
+   * Render a form to update an existing genero.
+   * GET generos/:id/edit
+   *
+   * @param {object} ctx
+   * @param {Request} ctx.request
+   * @param {Response} ctx.response
+   * @param {View} ctx.view
+   */
+  async edit ({ params, request, response, view }) {
+  }
+
+  /**
+   * Update genero details.
+   * PUT or PATCH generos/:id
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -56,8 +81,8 @@ class UsuarioController {
   }
 
   /**
-   * Delete a usuario with id.
-   * DELETE usuarios/:id
+   * Delete a genero with id.
+   * DELETE generos/:id
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -67,4 +92,4 @@ class UsuarioController {
   }
 }
 
-module.exports = UsuarioController
+module.exports = GeneroController

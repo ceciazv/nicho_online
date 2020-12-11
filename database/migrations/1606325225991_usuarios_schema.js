@@ -5,7 +5,7 @@ const Schema = use('Schema')
 
 class UsuarioSchema extends Schema {
   up () {
-    this.create('usuario', (table) => {
+    this.create('usuarios', (table) => {
       table.increments()
       table.string('nome', 88).notNullable().unique
       table.text('email', 254).notNullable().unique
@@ -15,7 +15,7 @@ class UsuarioSchema extends Schema {
   }
 
   down () {
-    this.drop('usuario')
+    this.drop('usuarios')
   }
 }
 

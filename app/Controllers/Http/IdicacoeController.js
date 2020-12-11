@@ -3,7 +3,7 @@
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
-
+const Indicacoes=use("App/Models/Indicacoes")
 /**
  * Resourceful controller for interacting with idicacoes
  */
@@ -18,18 +18,8 @@ class IdicacoeController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
-  }
-
-  /**
-   * Render a form to be used for creating a new idicacoe.
-   * GET idicacoes/create
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async create ({ request, response, view }) {
+    const idicacoes=await Indicacoes.all()
+    return idicacoes;
   }
 
   /**
@@ -40,7 +30,10 @@ class IdicacoeController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response }) {
+  async store({ request, auth }) {
+    const indicacoes = request.only(["livros_id"]);
+    console.log(auth.user.id);
+    return indicacoes;
   }
 
   /**
@@ -53,18 +46,8 @@ class IdicacoeController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
-  }
-
-  /**
-   * Render a form to update an existing idicacoe.
-   * GET idicacoes/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async edit ({ params, request, response, view }) {
+    const indicacoes = await Indicacoes.findOrFail(params.id);
+    return indicacoes;
   }
 
   /**
@@ -76,8 +59,13 @@ class IdicacoeController {
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
-  }
-
+    const indicacoes= await Indicacoes.findOrFail(params.id);
+    const {livros_id } = request.only(["livros_id"]);
+    indicacoes.livros_id= livros_id;
+    await indicacoes.save();
+    return indicacoes;
+    }
+ 
   /**
    * Delete a idicacoe with id.
    * DELETE idicacoes/:id

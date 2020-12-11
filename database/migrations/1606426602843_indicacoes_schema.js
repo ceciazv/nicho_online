@@ -7,8 +7,6 @@ class IndicacoesSchema extends Schema {
   up () {
     this.create('indicacoes', (table) => {
       table.increments()
-      table.text('indica_semana');
-      table.text('generos');
       table
       .integer('livros_id')
       .unsigned()

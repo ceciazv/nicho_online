@@ -5,19 +5,18 @@ const Schema = use('Schema')
 
 class PostSchema extends Schema {
   up () {
-    this.create('post', (table) => {
+    this.create('posts', (table) => {
       table.increments()
       table
       .integer('usuario_id')
       .unsigned()
       .references("id")
-      .inTable('usuario')
+      .inTable('usuarios')
       .onUpdate('cascade')
       .onDelete('cascade')
       .notNullable();
       table.string('post',255);
       table.text('nome');
-      table.date('data');
       table.text('descricao');
       table.string('avaliacao');
       table.timestamps();
@@ -25,7 +24,7 @@ class PostSchema extends Schema {
   }
 
   down () {
-    this.drop('post')
+    this.drop('posts')
   }
 }
 

@@ -8,7 +8,8 @@ class LivrosSchema extends Schema {
     this.create('livros', (table) => {
       table.increments()
       table.text('nome');
-      table.text('genero');
+      table.integer('genero_id').unsigned().references('id').inTable('generos').onUpdate('cascade')
+      .onDelete('cascade').notNullable();
       table.text('autor');
       table.text('editora');
       table.timestamps()

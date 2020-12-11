@@ -23,4 +23,5 @@ usuario()
  }
 
 }
-module.exports = Forum
+module.exports = Forum;
+

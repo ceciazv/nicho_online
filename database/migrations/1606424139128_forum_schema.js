@@ -5,14 +5,14 @@ const Schema = use('Schema')
 
 class ForumSchema extends Schema {
   up () {
-    this.create('forum', (table) => {
+    this.create('forums', (table) => {
       table.increments()
       table.text('postagens');
       table
       .integer('usuario_id')
       .unsigned()
       .references("id")
-      .inTable('usuario')
+      .inTable('usuarios')
       .onUpdate('cascade')
       .onDelete('cascade')
       .notNullable();
@@ -20,10 +20,10 @@ class ForumSchema extends Schema {
       .integer('post_id')
       .unsigned()
       .references("id")
-      .inTable('post')
+      .inTable('posts')
       .onUpdate('cascade')
       .onDelete('cascade')
-      .notNullable();
+      .nullable();
       table
       .integer('livros_id')
       .unsigned()
@@ -38,7 +38,7 @@ class ForumSchema extends Schema {
   }
 
   down () {
-    this.drop('forum')
+    this.drop('forums')
   }
 }
 
