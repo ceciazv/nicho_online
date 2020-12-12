@@ -29,6 +29,6 @@ Route.group(() => {
   Route.resource("post", "PostController").apiOnly();
   Route.resource("forum","ForumController").apiOnly();
   Route.resource("livros","LivroController").apiOnly();
-  Route.resource("indicacoes","IdicacoeController").apiOnly();
+  Route.resource("indicacoes","Idicacoentroller").apiOnly();
 
 }).middleware(["auth"]);
