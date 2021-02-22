@@ -23,12 +23,14 @@ Route.get('/', () => {
 });
 Route.post("/register","AuthController.register");
 Route.post("/authenticate", "AuthController.authenticate");
+Route.resource("livros","LivroController").apiOnly();
 
 Route.group(() => {
   Route.get("/genero", "GeneroController.index");
   Route.resource("post", "PostController").apiOnly();
   Route.resource("forum","ForumController").apiOnly();
-  Route.resource("livros","LivroController").apiOnly();
   Route.resource("indicacoes","Idicacoentroller").apiOnly();
+ 
+  Route.resource("post", "PostController").apiOnly();
 
 }).middleware(["auth"]);
